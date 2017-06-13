@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SOS</string>
+    <string name="welcome_text">SOS\nAlways be with your loved ones</string>
+    <string name="first_time_launch">FirstTimeLaunch</string>
+    <string name="number">ContactNumber</string>
+    <string name="send_sos">Send SOS</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="settings">Settings</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="service_description">This service tries to find the location under the accuracy specified by the application
+    user or default accuracy. It then sends it to the phone number specified by the application user.</string>
+</resources>
