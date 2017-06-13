@@ -5,13 +5,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,10 +24,10 @@ public class Utils {
     public static final String[] PERMISSIONS = {Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION};
     private static final int PLAY_SERVICES_RESOLUTION_REQ = 240;
 
-    public static boolean hasPermissions(Context context){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && PERMISSIONS != null){
-            for(String permission : PERMISSIONS){
-                if(ActivityCompat.checkSelfPermission(context,permission) != PackageManager.PERMISSION_GRANTED)
+    public static boolean hasPermissions(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && PERMISSIONS != null) {
+            for (String permission : PERMISSIONS) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED)
                     return false;
             }
         }
@@ -42,40 +40,39 @@ public class Utils {
         return firstTimeLaunch;
     }
 
-    public static boolean checkForPlayServices(final Activity context){
+    public static boolean checkForPlayServices(final Activity context) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
-        if(resultCode != ConnectionResult.SUCCESS){
-            if(apiAvailability.isUserResolvableError(resultCode)){
-                Log.d("debug","in here");
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                Log.d("debug", "in here");
                 Dialog dg = apiAvailability.getErrorDialog(context, resultCode, PLAY_SERVICES_RESOLUTION_REQ, new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         context.finishAffinity();
                     }
                 });
-                if(dg != null) {
+                if (dg != null) {
                     Log.d("debug", "after here : " + dg);
 
                     dg.show();
                 }
                 return false;
-            }
-            else{
-                Log.d("debug","This device is not supported");
+            } else {
+                Log.d("debug", "This device is not supported");
                 context.finishAffinity();
             }
         }
         return true;
     }
 
-    public static void sendMessage(String message,Context context){
+    public static void sendMessage(String message, Context context) {
         SmsManager smsManager = SmsManager.getDefault();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String number = preferences.getString(context.getString(R.string.number),"9953493619");
-        smsManager.sendTextMessage(number,null,message,null,null);
-        Log.d("debug",message);
-        Toast.makeText(context,"Message sent",Toast.LENGTH_SHORT).show();
+        String number = preferences.getString(context.getString(R.string.number), "9953493619");
+        smsManager.sendTextMessage(number, null, message, null, null);
+        Log.d("debug", message);
+        Toast.makeText(context, "Message sent", Toast.LENGTH_LONG).show();
     }
 
 
